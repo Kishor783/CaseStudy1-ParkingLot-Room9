@@ -1,0 +1,16 @@
+Admin Staff:
+-Implement ParkingLot Class
+-Vector<Customer>
+-Implement infinite while loop
+--Implement Customer Class
+--Add this customer to Vector
+
+ParkingLot:
+-Implement Floor
+
+Floor inherits ParkingLot:
+
+
+Customer:
+? Ask the customer his vehicle
+? 
