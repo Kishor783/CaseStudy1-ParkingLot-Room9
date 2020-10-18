@@ -7,6 +7,6 @@ Then click on the green "code" button and copy the url
 
 Open your cmd prompt and traverse to the directory where you want to have your repo for your local machine
 The use the command - 
-# git clone <Copied URL>
+git clone <Copied URL>
 
 And you will get your clone
