@@ -1,11 +1,22 @@
 Admin Staff:
 -Implement ParkingLot Class
 -Vector<Customer>
+-Vector<Integer> (for ID of vehicle starting from 0)
 -Implement infinite while loop
 --Implement Customer Class
 --Add this customer to Vector
 
 ParkingLot:
+-Entry Panel :-
+<Customer will only say what is preference is
+>How many floors are having your preference
+>The availibility of your preference
+>Its Full/ Go to this floor
+
+-Exit Panel :-
+>Get customer ID
+-From ID get his parking spot type, his hours spent, 
+
 -Implement Floor
 
 Floor inherits ParkingLot:
@@ -13,4 +24,9 @@ Floor inherits ParkingLot:
 
 Customer:
 ? Ask the customer his vehicle
-? 
+?
+-Vehicle type (Truck, Car, Electric Car, Motorcycle)
+-Preference (Truck, Compact/large/VIP, Electric, Motorcycle)
+-id
+
+External File for standard Input:
