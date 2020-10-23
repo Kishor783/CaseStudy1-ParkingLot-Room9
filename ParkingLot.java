@@ -3,6 +3,7 @@ import java.util.*;
 interface floor {
 	double payment(int hours);
 	double payment(int hours, String creditCard);
+	boolean isAvailable(int preferenceType);
 	void displayBoard();
 }
 
@@ -10,7 +11,7 @@ interface payment {
 	
 }
 
-class Admin{
+class Admin {
 
 	Scanner scan = new Scanner(System.in);
 
@@ -20,9 +21,14 @@ class Admin{
 	int numberOfElectricSpots;
 	int numberOfHandicappedSpots;
 	int numberOfTruckSpots;
+	int numberofMotorCycleSpots;
+
+	int id = 1;
 	
 	TruckFloor groundFloor;
 	CommonFloor[] commonFloor;
+
+	Vector<Customer> customers;
 	
 	Admin(){
 		
@@ -32,8 +38,12 @@ class Admin{
 		commonFloor = new CommonFloor[numberOfFloors - 1];
 		
 		for(int i=0; i<numberOfFloors - 1; i++) {
-			commonFloor[i] = new CommonFloor(numberOfCompactSpots, numberOfLargeSpots, numberOfElectricSpots, numberOfHandicappedSpots);
+			commonFloor[i] = new CommonFloor(numberOfCompactSpots, numberOfLargeSpots, numberOfElectricSpots, numberOfHandicappedSpots, numberofMotorCycleSpots, i + 1);
 		}
+
+		customers = new Vector<Customer>();
+
+		new Admin().start();
 
 	}
 	
@@ -47,6 +57,145 @@ class Admin{
 		numberOfTruckSpots = scan.nextInt();
 
 	}
+
+	public void start() {
+
+		while(true) {
+
+			boolean isTruckFull = !groundFloor.isAvailable();
+			boolean isMotorCycleFull = true;
+			boolean isElectricCarFull = true;
+			boolean isLargeFull = true;
+			boolean isHadicappedFull = true;
+			boolean isCompactFull = true;
+			for(int i = 0; i < numberOfFloors - 1; i++) {
+
+				if(!commonFloor[i].isAvailable(2)) {
+					isMotorCycleFull = false;
+				}
+				
+				if(!commonFloor[i].isAvailable(3)) {
+					isElectricCarFull = false;
+				}
+
+				if(!commonFloor[i].isAvailable(4)) {
+					isLargeFull = false;
+				}
+
+				if(!commonFloor[i].isAvailable(5)) {
+					isHadicappedFull = false;
+				}
+
+				if(!commonFloor[i].isAvailable(6)) {
+					isCompactFull = false;
+				}
+
+			}
+
+			// System.out.println("Available Floors");
+			// for(int i = 0; i < numberOfFloors - 1; i++) {
+			// 	if(commonFloor[i].isAvailable(preferenceType))
+			// 		System.out.println("Floor" + (i + 1) );
+			// }
+
+			System.out.println("What is your Vehicle Type : ");
+			System.out.println("1 - Truck         : price/hour");
+			System.out.println("2 - MotorCycle    : price/hour");
+			System.out.println("3 - Electric Car  : price/hour");
+			System.out.println("4 - Van > ");
+			System.out.println("5 - Car > ");
+			
+			int vehicleType = scan.nextInt();
+
+			if(vehicleType == 1 || vehicleType == 2 || vehicleType == 3) {
+				askSinglePreferences(vehicleType);
+			}
+
+			else if(vehicleType == 4 || vehicleType == 5) {
+				askMultiPreferences(vehicleType);
+			}
+
+			else {
+				System.out.println("Please enter a vaild Vehicle Type");
+			}
+				
+		}
+
+	}
+
+	private void askSinglePreferences(int vehicleType) {
+		
+		Customer customer;
+
+		int preferenceType = vehicleType;
+
+		if(preferenceType == 1) {
+			groundFloor.isAvailable(preferenceType);
+		}
+
+		else {
+			
+		}
+
+		customer = new Customer(vehicleType, id);
+		id++;
+
+	}
+
+	private void askMultiPreferences(int vehicleType) {
+
+		Customer customer;
+
+		System.out.println("What is your prefernce : ");
+		System.out.println("1 - Large");
+		System.out.println("2 - Handicapped");
+
+		if(vehicleType == 5) {
+			System.out.println("3 - Compact");
+		}
+
+		int preferenceType = scan.nextInt();
+
+		while(true) {
+
+			if( (preferenceType > 0 && preferenceType <= 2 ) && vehicleType == 4)  {
+				customer = new Customer(vehicleType, id, preferenceType + 3);
+				id++;
+			}
+
+			else if( (preferenceType > 0 && preferenceType <= 3 ) && vehicleType == 5)  {
+				customer = new Customer(vehicleType, id, preferenceType + 3);
+				id++;
+			}
+
+			else {
+				System.out.println("Please enter a vaild Preference Type");
+			}
+		
+		}
+
+	}
+
+	private boolean isAvailable(int vehicleType, int preferenceType) {
+
+		if(vehicleType == 1) {
+
+			int i = 0;
+
+			for(i = 0; i < numberOfTruckSpots; i++) {
+
+				
+
+			}
+			
+
+		}
+
+		else {
+
+		}
+
+	}
 	
 	
 }
@@ -55,7 +204,7 @@ class Customer{
 
 	int vehicleType; 
 	int ID;
-	int preference;
+	int preference; // Truck = 1; MotorCycle = 2; Electric Car = 3; Van = 4 Large = 4, Handicapped =5; Car = 5 Large = 4, Handicapped = 5, Compact = 6
 	boolean paymentStatus = false;
 	double paymentFee;
 	int floorNumber;
@@ -77,34 +226,91 @@ class Customer{
 
 class CommonFloor{
 
-	boolean []compact;
-	boolean []large;
+	boolean []motorcycle;
 	boolean []electric;
+	boolean []large;
 	boolean []handicapped;
+	boolean []compact;
 	
-	int compactEmptySpots;
-	int largeEmptySpots;
+	int motorcycleEmptySpots;
 	int electricEmptySpots;
+	int largeEmptySpots;
 	int handicappedEmptySpots;
-	
-	CommonFloor(int compactSize, int largeSize, int electricSize, int handicappedSize) {
+	int compactEmptySpots;
 
-		compact = new boolean[compactSize];
-		large = new boolean[largeSize];
+	int floorNumber;
+	
+	CommonFloor(int compactSize, int largeSize, int electricSize, int handicappedSize, int motorcyclesize, int floor) {
+
+		motorcycle = new boolean[motorcyclesize];
 		electric = new boolean[electricSize];
+		large = new boolean[largeSize];
 		handicapped = new boolean[handicappedSize];	
-		compactEmptySpots = compactSize;
-		largeEmptySpots = largeSize;
+		compact = new boolean[compactSize];
+
+		motorcycleEmptySpots = motorcyclesize;
 		electricEmptySpots = electricSize;
+		largeEmptySpots = largeSize;
 		handicappedEmptySpots = handicappedSize;
+		compactEmptySpots = compactSize;
+
+		floorNumber = floor;
+	}
+
+	boolean isAvailable(int preferenceType) {
+
+		if(preferenceType == 2) {
+
+			if(motorcycleEmptySpots == 0)
+				return false;
+			else
+				return true;
+
+		}
+
+		else if(preferenceType == 3) {
+
+			if(electricEmptySpots == 0)
+				return false;
+			else
+				return true;
+
+		}
+
+		else if(preferenceType == 4) {
+
+			if(largeEmptySpots == 0)
+				return false;
+			else
+				return true;
+
+		}
+
+		else if(preferenceType == 5) {
+
+			if(handicappedEmptySpots == 0)
+				return false;
+			else
+				return true;
+
+		}
+
+		if(preferenceType == 6) {
+
+			if(compactEmptySpots == 0)
+				return false;
+			else
+				return true;
+
+		}
 
 	}
 	
 }
 
-class TruckFloor{
+class TruckFloor {
 	
-	boolean []truck;
+	private boolean []truck;
 	
 	int truckEmptySpots;
 	
@@ -113,59 +319,27 @@ class TruckFloor{
 		this.truckEmptySpots = truckSize;
 	}
 
-}
+	boolean isAvailable() {
 
+		if(truckEmptySpots == 0)
+			return false;
+		else
+			return true;
 
-class Parking {
-    int numberOfFloors = 5; // Ground is reserved for Trucks (0); Others are for other vehicles (1 - n)
-    Floor[] floors;
-    Parking() {
-        floors = new Floor[numberOfFloors];
+	}
 
-        floors[0] = new Floor("Truck");
+	void assignSlot(int index) {
 
-        for(int i = 1; i < numberOfFloors; i++) {
-            floors[i] = new Floor("Common");
-        }
+		truck[index - 1] = true;
 
-    }
+	}
 
 }
 
+public class ParkingLot {
 
-// we will decide the values later and we will create a boolean array to know wheter a spot is free or not
-// we can also cluster same kinf of spots
-// So if someone wants a large spot, he can go for -> 2-L1; 2 - floor number, l - large, 1 - 1st spot in large
-// So we need floor number from customer, his preference and his selection of spot from available spots
-// So we will just ask him further questions like a google form and check whether is it available
+	public static void main(String[] args) {
 
-// We will have a boolean array and we will use its index to number it; we will figure it out later
-// we will have seperate boolean arrays for each type of spot like large will have one
-// Menu Driven Program
-
-// Number of Truck Slots on Truck Floor = NTF
-
-// Number of compact Slots on common Floor = NCCF
-// Number of VIP Slots on common Floor = NVCF
-// Number of MotorCycle Slots on common Floor = NMCF
-// Number of Electric Slots on Truck common = NECF
-// Number of large Slots on common Floor = NLCF
-
-class Floor {
-
-    // Floor should have payment panel
-    //// I am thinking we do not need a customer class as we can just create a menu driven program
-    //// that will ask the user at every step
-    // 
-
-    int floorNumber;
-    boolean isTruck;
-
-    Floor(String s) {
-        if(s == "Truck") // We will define string compare later
-            isTruck = true;
-        else
-            isTruck = false;
-    }
+	}
 
 }
