@@ -1,16 +1,19 @@
 import java.util.*;
-interface floor{
+
+interface floor {
 	double payment(int hours);
 	double payment(int hours, String creditCard);
 	void displayBoard();
 }
 
-interface payment{
+interface payment {
 	
 }
 
 class Admin{
+
 	Scanner scan = new Scanner(System.in);
+
 	int numberOfFloors;
 	int numberOfCompactSpots;
 	int numberOfLargeSpots;
@@ -19,28 +22,37 @@ class Admin{
 	int numberOfTruckSpots;
 	
 	TruckFloor groundFloor;
-	CommonFloor []commonFloor;
+	CommonFloor[] commonFloor;
 	
 	Admin(){
-		numberOfFloors = scan.nextInt();
-		numberOfCompactSpots = scan.nextInt();
-		numberOfLargeSpots = scan.nextInt();
-		numberOfElectricSpots = scan.nextInt();
-		numberOfHandicappedSpots = scan.nextInt();
-		numberOfTruckSpots = scan.nextInt();
 		
+		new Admin().getInput();
+
 		groundFloor = new TruckFloor(numberOfTruckSpots);
 		commonFloor = new CommonFloor[numberOfFloors - 1];
 		
 		for(int i=0; i<numberOfFloors - 1; i++) {
 			commonFloor[i] = new CommonFloor(numberOfCompactSpots, numberOfLargeSpots, numberOfElectricSpots, numberOfHandicappedSpots);
 		}
+
+	}
+	
+	private void getInput() {
+
+		numberOfFloors = scan.nextInt();
+		numberOfCompactSpots = scan.nextInt();
+		numberOfLargeSpots = scan.nextInt();
+		numberOfElectricSpots = scan.nextInt();
+		numberOfHandicappedSpots = scan.nextInt();
+		numberOfTruckSpots = scan.nextInt();
+
 	}
 	
 	
-	
 }
+
 class Customer{
+
 	int vehicleType; 
 	int ID;
 	int preference;
@@ -49,11 +61,13 @@ class Customer{
 	int floorNumber;
 	int slotIndex;
 	
-	Customer(int vehicleType, int ID){
+	Customer(int vehicleType, int ID) {
 		this.vehicleType = vehicleType;
 		this.ID = ID;
+		this.preference = vehicleType;
 	}
-	Customer(int vehicleType, int ID, int preference){
+
+	Customer(int vehicleType, int ID, int preference) {
 		this.vehicleType = vehicleType;
 		this.ID = ID;
 		this.preference = preference;
@@ -62,6 +76,7 @@ class Customer{
 }
 
 class CommonFloor{
+
 	boolean []compact;
 	boolean []large;
 	boolean []electric;
@@ -72,7 +87,8 @@ class CommonFloor{
 	int electricEmptySpots;
 	int handicappedEmptySpots;
 	
-	CommonFloor(int compactSize, int largeSize, int electricSize, int handicappedSize){
+	CommonFloor(int compactSize, int largeSize, int electricSize, int handicappedSize) {
+
 		compact = new boolean[compactSize];
 		large = new boolean[largeSize];
 		electric = new boolean[electricSize];
@@ -81,10 +97,13 @@ class CommonFloor{
 		largeEmptySpots = largeSize;
 		electricEmptySpots = electricSize;
 		handicappedEmptySpots = handicappedSize;
+
 	}
+	
 }
 
 class TruckFloor{
+	
 	boolean []truck;
 	
 	int truckEmptySpots;
@@ -93,6 +112,7 @@ class TruckFloor{
 		truck = new boolean[truckSize];
 		this.truckEmptySpots = truckSize;
 	}
+
 }
 
 
