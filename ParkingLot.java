@@ -32,7 +32,7 @@ class Admin {
 	
 	Admin(){
 		
-		new Admin().getInput();
+		getInput();
 
 		groundFloor = new TruckFloor(numberOfTruckSpots);
 		commonFloor = new CommonFloor[numberOfFloors - 1];
@@ -43,7 +43,6 @@ class Admin {
 
 		customers = new Vector<Customer>();
 
-		new Admin().start();
 
 	}
 	
@@ -57,61 +56,145 @@ class Admin {
 		numberOfTruckSpots = scan.nextInt();
 
 	}
+	
+	boolean isPreferenceTypeFull(int preference) {
+		if(preference != 1) {
+			for(int i = 0; i < numberOfFloors - 1; i++)
+				if(!commonFloor[i].isAvailable(preference)) 
+					return false;
+		 
+			return true;
+		}
+		else {
+			return !groundFloor.isAvailable();
+		}
+	}
+	
+	void parkingDisplayBoard() {
+		
+		System.out.println("What is your Vehicle Type : ");
+		System.out.println("1 - Truck         : price/hour");
+		System.out.println("2 - MotorCycle    : price/hour");
+		System.out.println("3 - Electric Car  : price/hour");
+		System.out.println("4 - Van > ");
+		System.out.println("5 - Car > ");
+		
+		if(isPreferenceTypeFull(1))
+			System.out.println("Truck Spots         : not available");
+		else
+			System.out.println("Truck Spots         : available");
+		
+		if(isPreferenceTypeFull(2))
+			System.out.println("MotorCycle Spots    : not available");
+		else
+			System.out.println("MotorCycle Spots    : available");
+		
+		if(isPreferenceTypeFull(3))
+			System.out.println("Electric Car Spots  : not available");
+		else
+			System.out.println("Electric Car Spots  : available");
+		
+		if(isPreferenceTypeFull(4))
+			System.out.println("Large Spots         : not available");
+		else
+			System.out.println("Large Spots         : available");
+		
+		if(isPreferenceTypeFull(5))
+			System.out.println("Handicapped Spots   : not available");
+		else
+			System.out.println("Handicapped Spots   : available");
+		
+		if(isPreferenceTypeFull(6))
+			System.out.println("Compact Spots       : not available");
+		else
+			System.out.println("Compact Spots       : available");
+		
+	}
+	  
+	void entrancePanelOfFloor(int floorNumber) {
+		
+		if(floorNumber == 0) {
+			if(!groundFloor.isAvailable()) 
+				System.out.println("Truck Spots         : not available");
+			else
+				System.out.println("Truck Spots         : available");
+		}
+		else {
+			if(!commonFloor[floorNumber].isAvailable(2))
+				System.out.println("MotorCycle Spots    : not available");
+			else
+				System.out.println("MotorCycle Spots    : available");
+			
+			if(!commonFloor[floorNumber].isAvailable(3))
+				System.out.println("Electric Car Spots  : not available");
+			else
+				System.out.println("Electric Car Spots  : available");
+			
+			if(!commonFloor[floorNumber].isAvailable(4))
+				System.out.println("Large Spots         : not available");
+			else
+				System.out.println("Large Spots         : available");
+			
+			if(!commonFloor[floorNumber].isAvailable(5))
+				System.out.println("Handicapped Spots   : not available");
+			else
+				System.out.println("Handicapped Spots   : available");
+			
+			if(!commonFloor[floorNumber].isAvailable(6))
+				System.out.println("Compact Spots       : not available");
+			else
+				System.out.println("Compact Spots       : available");
+		}
+	}
 
 	public void start() {
 
 		while(true) {
-
-			boolean isTruckFull = !groundFloor.isAvailable();
-			boolean isMotorCycleFull = true;
-			boolean isElectricCarFull = true;
-			boolean isLargeFull = true;
-			boolean isHadicappedFull = true;
-			boolean isCompactFull = true;
-			for(int i = 0; i < numberOfFloors - 1; i++) {
-
-				if(!commonFloor[i].isAvailable(2)) {
-					isMotorCycleFull = false;
-				}
-				
-				if(!commonFloor[i].isAvailable(3)) {
-					isElectricCarFull = false;
-				}
-
-				if(!commonFloor[i].isAvailable(4)) {
-					isLargeFull = false;
-				}
-
-				if(!commonFloor[i].isAvailable(5)) {
-					isHadicappedFull = false;
-				}
-
-				if(!commonFloor[i].isAvailable(6)) {
-					isCompactFull = false;
-				}
-
-			}
-
-			// System.out.println("Available Floors");
-			// for(int i = 0; i < numberOfFloors - 1; i++) {
-			// 	if(commonFloor[i].isAvailable(preferenceType))
-			// 		System.out.println("Floor" + (i + 1) );
-			// }
-
-			System.out.println("What is your Vehicle Type : ");
-			System.out.println("1 - Truck         : price/hour");
-			System.out.println("2 - MotorCycle    : price/hour");
-			System.out.println("3 - Electric Car  : price/hour");
-			System.out.println("4 - Van > ");
-			System.out.println("5 - Car > ");
 			
+			parkingDisplayBoard();
+
 			int vehicleType = scan.nextInt();
 
 			if(vehicleType == 1 || vehicleType == 2 || vehicleType == 3) {
-				askSinglePreferences(vehicleType);
+				
+				if(vehicleType == 1 && isPreferenceTypeFull(1)) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+					continue;
+				} 
+				else {
+					Customer customer = new Customer(vehicleType, id, 1);
+				    id++;
+				}
+				
+				if(vehicleType == 2 && isPreferenceTypeFull(2)) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+					continue;
+				} 
+				else {
+					Customer customer = new Customer(vehicleType, id, 2);
+				    id++;
+				}
+				
+				if(vehicleType == 3 && isPreferenceTypeFull(3)) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+					continue;
+				}
+				else {
+					Customer customer = new Customer(vehicleType, id, 3);
+				    id++;
+				}
+//				askSinglePreferences(vehicleType);
 			}
 
 			else if(vehicleType == 4 || vehicleType == 5) {
+				if(isPreferenceTypeFull(4) && isPreferenceTypeFull(5) && vehicleType == 4) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+					continue;
+				}
+				if(isPreferenceTypeFull(4) && isPreferenceTypeFull(5) && isPreferenceTypeFull(6) && vehicleType == 5) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+					continue;
+				}
 				askMultiPreferences(vehicleType);
 			}
 
@@ -123,24 +206,21 @@ class Admin {
 
 	}
 
-	private void askSinglePreferences(int vehicleType) {
-		
-		Customer customer;
-
-		int preferenceType = vehicleType;
-
-		if(preferenceType == 1) {
-			groundFloor.isAvailable(preferenceType);
-		}
-
-		else {
-			
-		}
-
-		customer = new Customer(vehicleType, id);
-		id++;
-
-	}
+//	private void askSinglePreferences(int vehicleType) {
+//		
+//		Customer customer;
+//
+//		if(vehicleType == 1) {
+//			groundFloor.isAvailable();
+//		}
+//		else {
+//			
+//		}
+//
+//		customer = new Customer(vehicleType, id);
+//		id++;
+//
+//	}
 
 	private void askMultiPreferences(int vehicleType) {
 
@@ -159,13 +239,25 @@ class Admin {
 		while(true) {
 
 			if( (preferenceType > 0 && preferenceType <= 2 ) && vehicleType == 4)  {
-				customer = new Customer(vehicleType, id, preferenceType + 3);
-				id++;
+				
+				if(!isPreferenceTypeFull(preferenceType)) {
+					customer = new Customer(vehicleType, id, preferenceType + 3);
+				    id++;
+				}
+				else {
+					System.out.println("Sorry, above preference is not avialable");
+				}
 			}
 
 			else if( (preferenceType > 0 && preferenceType <= 3 ) && vehicleType == 5)  {
-				customer = new Customer(vehicleType, id, preferenceType + 3);
-				id++;
+				
+				if(!isPreferenceTypeFull(preferenceType)) { 
+					customer = new Customer(vehicleType, id, preferenceType + 3);
+					id++;
+				}
+				else {
+					System.out.println("Sorry, above preference is not avialable");
+				}
 			}
 
 			else {
@@ -176,29 +268,9 @@ class Admin {
 
 	}
 
-	private boolean isAvailable(int vehicleType, int preferenceType) {
-
-		if(vehicleType == 1) {
-
-			int i = 0;
-
-			for(i = 0; i < numberOfTruckSpots; i++) {
-
-				
-
-			}
-			
-
-		}
-
-		else {
-
-		}
 
 	}
 	
-	
-}
 
 class Customer{
 
@@ -295,7 +367,7 @@ class CommonFloor{
 
 		}
 
-		if(preferenceType == 6) {
+		else {
 
 			if(compactEmptySpots == 0)
 				return false;
@@ -303,7 +375,7 @@ class CommonFloor{
 				return true;
 
 		}
-
+		
 	}
 	
 }
@@ -339,7 +411,8 @@ class TruckFloor {
 public class ParkingLot {
 
 	public static void main(String[] args) {
-
+		Admin admin = new Admin();
+		admin.start();
 	}
 
 }
