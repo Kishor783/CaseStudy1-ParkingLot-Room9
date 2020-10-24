@@ -71,44 +71,38 @@ class Admin {
 	}
 	
 	void parkingDisplayBoard() {
-		
+
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		System.out.println("\nENTRY PANEL\n");
 		System.out.println("What is your Vehicle Type : ");
-		System.out.println("1 - Truck         : price/hour");
-		System.out.println("2 - MotorCycle    : price/hour");
-		System.out.println("3 - Electric Car  : price/hour");
-		System.out.println("4 - Van > ");
-		System.out.println("5 - Car > ");
 		
 		if(isPreferenceTypeFull(1))
-			System.out.println("Truck Spots         : not available");
+			System.out.println("1 - Truck         : price/hour         : not available");
 		else
-			System.out.println("Truck Spots         : available");
+			System.out.println("1 - Truck         : price/hour         : available");
 		
 		if(isPreferenceTypeFull(2))
-			System.out.println("MotorCycle Spots    : not available");
+			System.out.println("2 - MotorCycle    : price/hour         : not available");
 		else
-			System.out.println("MotorCycle Spots    : available");
+			System.out.println("2 - MotorCycle    : price/hour         : available");
 		
 		if(isPreferenceTypeFull(3))
-			System.out.println("Electric Car Spots  : not available");
+			System.out.println("3 - Electric Car  : price/hour  	   : not available");
 		else
-			System.out.println("Electric Car Spots  : available");
+			System.out.println("3 - Electric Car  : price/hour  	   : available");
 		
-		if(isPreferenceTypeFull(4))
-			System.out.println("Large Spots         : not available");
+		if(isPreferenceTypeFull(4) && isPreferenceTypeFull(5))
+			System.out.println("4 - Van >         					   : not available");
 		else
-			System.out.println("Large Spots         : available");
+			System.out.println("4 - Van >         					   : available");
 		
-		if(isPreferenceTypeFull(5))
-			System.out.println("Handicapped Spots   : not available");
+		if(isPreferenceTypeFull(4) && isPreferenceTypeFull(5) && isPreferenceTypeFull(6))
+			System.out.println("5 - Car >							   : not available");
 		else
-			System.out.println("Handicapped Spots   : available");
+			System.out.println("5 - Car >							   : available");
 		
-		if(isPreferenceTypeFull(6))
-			System.out.println("Compact Spots       : not available");
-		else
-			System.out.println("Compact Spots       : available");
-		
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
 	}
 	  
 	void entrancePanelOfFloor(int floorNumber) {
@@ -147,6 +141,68 @@ class Admin {
 		}
 	}
 
+	void displayAvailableFloors(int preferenceType) {
+		
+		System.out.println("Which floor do you want..?");
+		if(preferenceType == 1) {
+			System.out.println("Ground Floor : available");
+		}
+		else {
+			for(int i=1; i<numberOfFloors -1; i++) {
+				if(commonFloor[i].isAvailable(preferenceType))
+					System.out.println("Floor " + i + "  : available");
+			}
+		}
+	}
+	
+	void allotFloor(int vehicleType, Customer customer,int preference) {
+		displayAvailableFloors(vehicleType);
+		
+		while(true) {
+			int floorNum = scan.nextInt();
+			if(vehicleType == 1 && floorNum != 0) {
+				System.out.println("Above floor is not available for truck");
+			}
+			else if(vehicleType == 1 && floorNum == 0) {
+				customer.changeFloorNumber(floorNum);
+				groundFloor.showSpots();
+				while(true) {
+					int index = scan.nextInt();
+					 if(groundFloor.checkIndex(index)) {
+						 groundFloor.assignSlot(index);
+						 customer.changeSlotIndex(index);
+						 System.out.println("Allotment successufull and collect your ticket");
+						 break;
+					 }
+					 else {
+						 System.out.println("Above index is not available, please choose again");
+						 continue;
+					 }
+				}
+			}
+			else {
+				if( floorNum < 1 || floorNum > numberOfFloors) {
+					System.out.println("Above floor is not available for your vehicle type");
+					continue;
+				}
+				if(commonFloor[floorNum].isAvailable(preference)) {
+					customer.changeFloorNumber(floorNum);
+					while(true) {
+						int index = scan.nextInt();
+						if(commonFloor[floorNum].checkIndex(preference,index) {
+							commonFloor[floorNum].assignSlot(index, preference);
+							System.out.println("Allotment successufull and collect your ticket");
+						}
+						else
+							System.out.println("Please enter a valid index");
+					}
+				}
+			}
+			
+			
+		}
+	}
+	
 	public void start() {
 
 		while(true) {
@@ -154,15 +210,63 @@ class Admin {
 			parkingDisplayBoard();
 
 			int vehicleType = scan.nextInt();
+			
+			if(vehicleType == 1 ) {
+				if(isPreferenceTypeFull(1)) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+				}
+				else {
+					Customer customer = new Customer(vehicleType, id, 1);
+				    id++;
+				}
+			}
+
+			if(vehicleType == 2 ) {
+				if(isPreferenceTypeFull(2)) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+				}
+				else {
+					Customer customer = new Customer(vehicleType, id, 2);
+				    id++;
+				}
+			}
+
+			if(vehicleType == 3 ) {
+				if(isPreferenceTypeFull(3)) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+				}
+				else {
+					Customer customer = new Customer(vehicleType, id, 3);
+				    id++;
+				}
+			}
+
+			if(vehicleType == 4 ) {
+				if(isPreferenceTypeFull(4) && isPreferenceTypeFull(5)) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+				}
+				else {
+					askMultiPreferences(4);
+				}
+			}
+
+			if(vehicleType == 5 ) {
+				if(isPreferenceTypeFull(4) && isPreferenceTypeFull(5) && isPreferenceTypeFull(6)) {
+					System.out.println("Sorry, all preferences are filled for your vehicle type");
+				}
+				else {
+					askMultiPreferences(5);
+				}
+			}
 
 			if(vehicleType == 1 || vehicleType == 2 || vehicleType == 3) {
-				
+				Customer customer;
 				if(vehicleType == 1 && isPreferenceTypeFull(1)) {
 					System.out.println("Sorry, all preferences are filled for your vehicle type");
 					continue;
 				} 
 				else {
-					Customer customer = new Customer(vehicleType, id, 1);
+					customer = new Customer(vehicleType, id, 1);
 				    id++;
 				}
 				
@@ -171,7 +275,7 @@ class Admin {
 					continue;
 				} 
 				else {
-					Customer customer = new Customer(vehicleType, id, 2);
+					customer = new Customer(vehicleType, id, 2);
 				    id++;
 				}
 				
@@ -180,10 +284,11 @@ class Admin {
 					continue;
 				}
 				else {
-					Customer customer = new Customer(vehicleType, id, 3);
+					customer = new Customer(vehicleType, id, 3);
 				    id++;
 				}
-//				askSinglePreferences(vehicleType);
+				customers.add(customer);
+				
 			}
 
 			else if(vehicleType == 4 || vehicleType == 5) {
@@ -221,23 +326,48 @@ class Admin {
 //		id++;
 //
 //	}
+	void preferencesDisplayBoard(int vehicleType) {
 
+		System.out.println("--------------------------------------------------------------");
+
+		if(vehicleType == 4)
+			System.out.println("\nVAN\n");
+		else
+			System.out.println("\nCAR\n");
+
+		System.out.println("What is your preference Type : ");
+		System.out.println("2 - Handicapped");
+
+		if(isPreferenceTypeFull(4))
+			System.out.println("1 - Large         : price/hour         : not available");
+		else
+			System.out.println("1 - Large	      : price/hour         : available");
+
+		if(isPreferenceTypeFull(5))
+			System.out.println("2 - Handicapped   : price/hour         : not available");
+		else
+			System.out.println("2 - Handicapped   : price/hour         : available");
+
+		if(vehicleType == 5) {
+
+			if(isPreferenceTypeFull(4))
+				System.out.println("3 - Compact       : price/hour         : not available");
+			else
+				System.out.println("3 - Compact	      : price/hour         : available");
+			
+		}
+		System.out.println("--------------------------------------------------------------");
+		
+	}
+	
 	private void askMultiPreferences(int vehicleType) {
 
 		Customer customer;
-
-		System.out.println("What is your prefernce : ");
-		System.out.println("1 - Large");
-		System.out.println("2 - Handicapped");
-
-		if(vehicleType == 5) {
-			System.out.println("3 - Compact");
-		}
-
-		int preferenceType = scan.nextInt();
+		preferencesDisplayBoard(vehicleType);
 
 		while(true) {
-
+			int preferenceType = scan.nextInt();
+			
 			if( (preferenceType > 0 && preferenceType <= 2 ) && vehicleType == 4)  {
 				
 				if(!isPreferenceTypeFull(preferenceType)) {
@@ -271,30 +401,68 @@ class Admin {
 
 	}
 	
-
 class Customer{
 
-	int vehicleType; 
-	int ID;
-	int preference; // Truck = 1; MotorCycle = 2; Electric Car = 3; Van = 4 Large = 4, Handicapped =5; Car = 5 Large = 4, Handicapped = 5, Compact = 6
-	boolean paymentStatus = false;
-	double paymentFee;
-	int floorNumber;
-	int slotIndex;
+	private int vehicleType,preference;// Truck = 1; MotorCycle = 2; Electric Car = 3; Van = 4 Large = 4, Handicapped =5; Car = 5 Large = 4, Handicapped = 5, Compact = 6
+	private boolean paymentStatus = false;
+	private double paymentFee;
+	private int floorNumber,ID,slotIndex;
 	
-	Customer(int vehicleType, int ID) {
+	Customer(int vehicleType, int ID,boolean paymentStatus) {
 		this.vehicleType = vehicleType;
 		this.ID = ID;
 		this.preference = vehicleType;
+		this.paymentStatus = paymentStatus;
 	}
-
+	
 	Customer(int vehicleType, int ID, int preference) {
 		this.vehicleType = vehicleType;
 		this.ID = ID;
 		this.preference = preference;
 	}
+	void showTicket() {
+		System.out.println("Customer ID: " + ID);
+		System.out.println("Vehicle Type : " + vehicleType);
+		System.out.println("Vehicle Type : " + preference);
+		System.out.println("Slot Number: " + slotIndex);
+		System.out.println("FloorNumber: " + floorNumber);
+		System.out.println("PaymentStatus: " + ((paymentStatus) ? "Done" : "Not Done"));
+		System.out.println("PaymentFee: " + ((paymentStatus) ? "Not Applicable yet" : paymentFee));
+	}
+	
+	void changeSlotIndex(int index) {
+		slotIndex = index;
+	}
+	
+	void changeFloorNumber(int num) {
+		floorNumber = num;
+	}
 	
 }
+
+//class Customer{
+//
+//	int vehicleType; 
+//	int ID;
+//	int preference; // Truck = 1; MotorCycle = 2; Electric Car = 3; Van = 4 Large = 4, Handicapped =5; Car = 5 Large = 4, Handicapped = 5, Compact = 6
+//	boolean paymentStatus = false;
+//	double paymentFee;
+//	int floorNumber;
+//	int slotIndex;
+//	
+//	Customer(int vehicleType, int ID) {
+//		this.vehicleType = vehicleType;
+//		this.ID = ID;
+//		this.preference = vehicleType;
+//	}
+//
+//	Customer(int vehicleType, int ID, int preference) {
+//		this.vehicleType = vehicleType;
+//		this.ID = ID;
+//		this.preference = preference;
+//	}
+//	
+//}
 
 class CommonFloor{
 
@@ -375,9 +543,137 @@ class CommonFloor{
 				return true;
 
 		}
-		
+		void assignSlot(int index,int preference) {
+			if(preference == 2) {
+				motorcycle[index] = true;
+				--motorcycleEmptySpots;
+			}
+			if(preference == 3) {
+				electric[index] = true;
+				--electricEmptySpots;
+			}
+			if(preference == 4) {
+				large[index] = true;
+				--largeEmptySpots;
+			}
+			if(preference == 5) {
+				handicapped[index] = true;
+				--handicappedEmptySpots;
+			}
+			if(preference == 6) {
+				compact[index] = true;
+				--compactEmptySpots;
+			}
+			
+		}
+		void releaseSlot(int index,int preference) {
+			if(preference == 2) {
+				motorcycle[index] = false;
+				++motorcycleEmptySpots;
+			}
+			if(preference == 3) {
+				electric[index] = false;
+				++electricEmptySpots;
+			}
+			if(preference == 4) {
+				large[index] = false;
+				++largeEmptySpots;
+			}
+			if(preference == 5) {
+				handicapped[index] = false;
+				++handicappedEmptySpots;
+			}
+			if(preference == 6) {
+				compact[index] = false;
+				++compactEmptySpots;
+			}
+			
+		}
+		boolean checkIndex(int preference,int index) {
+			--index;
+			if(preference == 2) {
+				if(index < 0 || index >= motorcyclesize || motorcycle[index] == true)
+					return false;
+				else
+					return true;
+			}
+			else if(preference == 3) {
+				if(index < 0 || index >= electricSize || electric[index] == true)
+					return false;
+				else
+					return true;
+			}
+			else if(preference == 4) {
+				if(index < 0 || index >= largeSize || large[index] == true)
+					return false;
+				else
+					return true;
+			}
+			else if(preference == 5) {
+				if(index < 0 || index >= handicappedSize || handicapped[index] == true)
+					return false;
+				else
+					return true;
+			}
+			else {
+				if(index < 0 || index >= compactSize || compact[index] == true)
+					return false;
+				else
+					return true;
+			}
+		}
+	
+}
+
+class TruckFloor {
+	
+	private boolean []truck;
+	
+	private int truckEmptySpots,capacity;
+	TruckFloor(int capacity){
+		truck = new boolean[capacity];
+		this.truckEmptySpots = capacity;
+		this.capacity = capacity;
+	}
+
+	boolean isAvailable() {
+
+		if(truckEmptySpots == 0)
+			return false;
+		else
+			return true;
+
+	}
+
+	public void assignSlot(int index) {
+
+		truck[index - 1] = true;
+		--truckEmptySpots;
 	}
 	
+	public void releaseSlot(int index) {
+		truck[index-1] = false;
+		++truckEmptySpots;
+	}
+	
+	public void showSpots() {
+		for(int i = 1; i <= capacity;++i) {
+			if(truck[i-1] == false)
+				System.out.print(i + " ");
+		}
+		System.out.println();
+	}
+
+	boolean checkIndex(int index) {
+		if(--index >= 0 && index < capacity && truck[index] == false)
+			return true;
+		return false;
+			
+	}
+	
+	public boolean[] getTruckSpots() {
+		return truck;
+	}
 }
 
 class TruckFloor {
@@ -400,11 +696,11 @@ class TruckFloor {
 
 	}
 
-	void assignSlot(int index) {
-
-		truck[index - 1] = true;
-
-	}
+//	void assignSlot(int index) {
+//
+//		truck[index - 1] = true;
+//
+//	}
 
 }
 
