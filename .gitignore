@@ -1,5 +1,15 @@
 /Admin.class
+<<<<<<< HEAD
 /floor.class
 /parkingLot.class
 /payment.class
 /ParkingLot.class
+=======
+/CommonFloor.class
+/Customer.class
+/ParkingLot.class
+/TruckFloor.class
+/floor.class
+/payment.class
+/Payment.class
+>>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
