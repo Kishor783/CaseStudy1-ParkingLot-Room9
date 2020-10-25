@@ -118,19 +118,19 @@ class Admin {
 		System.out.println("What is your Vehicle Type : ");
 		
 		if(isPreferenceTypeFull(1))
-			System.out.println("1 - Truck\t\t: price/hour\t\t: not available");
+			System.out.println("1 - Truck\t\t: " + Math.round(rates.get(1) * 100) / 100 + "/hour\t\t: not available");
 		else
-			System.out.println("1 - Truck\t\t: price/hour\t\t: available");
+			System.out.println("1 - Truck\t\t: " + Math.round(rates.get(1) * 100) / 100 + "/hour\t\t: available");
 		
 		if(isPreferenceTypeFull(2))
-			System.out.println("2 - MotorCycle\t\t: price/hour\t\t: not available");
+			System.out.println("2 - MotorCycle\t\t: " + Math.round(rates.get(2) * 100) / 100 + "/hour\t\t: not available");
 		else
-			System.out.println("2 - MotorCycle\t\t: price/hour\t\t: available");
+			System.out.println("2 - MotorCycle\t\t: " + Math.round(rates.get(2) * 100) / 100 + "/hour\t\t: available");
 		
 		if(isPreferenceTypeFull(3))
-			System.out.println("3 - Electric Car\t: price/hour\t\t: not available");
+			System.out.println("3 - Electric Car\t: " + Math.round(rates.get(3) * 100) / 100 + "/hour\t\t: not available");
 		else
-			System.out.println("3 - Electric Car\t: price/hour\t\t: available");
+			System.out.println("3 - Electric Car\t: " + Math.round(rates.get(3) * 100) / 100 + "/hour\t\t: available");
 		
 		if(isPreferenceTypeFull(4) && isPreferenceTypeFull(5))
 			System.out.println("4 - Van >\t\t\t\t\t: not available");
@@ -491,21 +491,21 @@ class Admin {
 		System.out.println("What is your preference Type : ");
 
 		if(isPreferenceTypeFull(4))
-			System.out.println("1 - Large\t\t\t: price/hour\t\t\t: not available");
+			System.out.println("1 - Large\t\t\t: " + Math.round(rates.get(4) * 100) / 100 + "/hour\t\t\t: not available");
 		else
-			System.out.println("1 - Large\t\t\t: price/hour\t\t\t: available");
+			System.out.println("1 - Large\t\t\t: " + Math.round(rates.get(4) * 100) / 100 + "/hour\t\t\t: available");
 
 		if(isPreferenceTypeFull(5))
-			System.out.println("2 - Handicapped\t\t\t: price/hour\t\t\t: not available");
+			System.out.println("2 - Handicapped\t\t\t: " + Math.round(rates.get(5) * 100) / 100 + "/hour\t\t\t: not available");
 		else
-			System.out.println("2 - Handicapped\t\t\t: price/hour\t\t\t: available");
+			System.out.println("2 - Handicapped\t\t\t: " + Math.round(rates.get(5) * 100) / 100 + "/hour\t\t\t: available");
 
 		if(vehicleType == 5) {
 
 			if(isPreferenceTypeFull(6))
-				System.out.println("3 - Compact\t\t\t: price/hour\t\t\t: not available");
+				System.out.println("3 - Compact\t\t\t: " + Math.round(rates.get(6) * 100) / 100 + "/hour\t\t\t: not available");
 			else
-				System.out.println("3 - Compact\t\t\t: price/hour\t\t\t: available");
+				System.out.println("3 - Compact\t\t\t: " + Math.round(rates.get(6) * 100) / 100 + "/hour\t\t\t: available");
 			
 		}
 		System.out.println("--------------------------------------------------------------");
