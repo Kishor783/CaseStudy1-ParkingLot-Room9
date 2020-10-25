@@ -49,7 +49,7 @@ and then compile the ParkinLot.java file normally.
 
 To start program admin should enter correct PIN (PIN : "GOD").
 
-If admin wants to add a new customer than he should give input as 1 and should take necessary
+If admin wants to add a new customer than he should give input any integer other than 0 and should take necessary
 information from customer.
 
 If any customer wants to leave than admin should give input as 0 and customer gives his ID to admin so that
