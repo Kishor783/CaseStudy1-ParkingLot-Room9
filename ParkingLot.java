@@ -4,25 +4,24 @@ import java.time.LocalDateTime;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-<<<<<<< HEAD
+
 import Floor.*;//importing Floor package
 import Customer.Customer;//importing Customer package
 import Payment.Payment;//importing Payment package
-=======
+
 interface floor {
 	double payment(int hours);
 	double payment(int hours, String creditCard);
 	boolean isAvailable(int preferenceType);
 	void displayBoard();
 }
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
 
 class Admin {
 
 	Scanner fin;
 	Scanner scan = new Scanner(System.in);
 
-<<<<<<< HEAD
+
 	private int numberOfFloors;//number of floors
 
 	private int numberOfTruckSpots;//truck capacity
@@ -35,7 +34,7 @@ class Admin {
 
 	Map<Integer,String> vehicles;// a key value pair for mapping integers to vehicle types
 	Map<Integer,Double> rates; // a key value pair for mapping integers to rates of vehicles
-=======
+
 	int numberOfFloors;
 
 	int numberOfTruckSpots;
@@ -82,7 +81,7 @@ class Admin {
 		rates.put(4,fin.nextDouble());
 		rates.put(5,fin.nextDouble());
 		rates.put(6,fin.nextDouble());
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 
 	int id = 1;//id to assign to customers
 	
@@ -101,7 +100,7 @@ class Admin {
             System.out.println(e);//handling error in case input file is missing
         }
 		
-<<<<<<< HEAD
+
 		getInput();//taking input
 
 		vehicles = new HashMap<Integer,String>();//initializing the map to map vehicles 
@@ -128,7 +127,7 @@ class Admin {
 			commonFloor[i] = new CommonFloor(numberOfCompactSpots, numberOfLargeSpots, numberOfElectricSpots, numberOfHandicappedSpots, numberofMotorCycleSpots, i + 1);
 		}
 
-=======
+
 		//commonFloor[0] = 1st Floor
 
 		for(int i=0; i<numberOfFloors - 1; i++) {
@@ -137,12 +136,12 @@ class Admin {
 
 		//customers = new Vector<Customer>();
 
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 	}
 	//private function to take input
 	private void getInput() {
 
-<<<<<<< HEAD
+
 		numberOfFloors = fin.nextInt();//inputting number of floors
 
 		numberOfTruckSpots = fin.nextInt();//inputting truck spots
@@ -239,7 +238,7 @@ class Admin {
 				//calling a method to allot slot index based on preference given by user
 				customer = allotSpotIndex(customer, preference, floorNum);
 				break;//break when allotment is successful
-=======
+
 		numberOfFloors = fin.nextInt();
 
 		numberOfTruckSpots = fin.nextInt();
@@ -540,9 +539,7 @@ class Admin {
 				}
 				
 				customer.showTicket();
-				//customers.add(customer);
 				customers.put(customer.getID(),customer);
-				//System.out.println("2222222222222222222222");
 				
 			}
 
@@ -559,7 +556,6 @@ class Admin {
 				
 				askMultiPreferences(vehicleType);
 
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
 			}
 
 			else {//if vehicle is not a truck, we check the remaining floors
@@ -576,9 +572,6 @@ class Admin {
 					break;//break when allotment is successful
 				}
 			}
-<<<<<<< HEAD
-			
-=======
 
 			// ============== OLD CUSTOMER OUT ===============
 
@@ -596,7 +589,6 @@ class Admin {
 				}
 			}*/
 
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
 		}
 
 		return customer;//return the customer with updated attributes such as floor number and slot number
@@ -604,7 +596,6 @@ class Admin {
 //method to allot spot index chosen by user based on his preference
 	Customer allotSpotIndex(Customer customer, int preference, int floorNum) {
 
-<<<<<<< HEAD
 		System.out.println("Which Spot do you want for your vehicle ?");
 
 		if(preference == 1) {//if preference is a truck
@@ -614,7 +605,6 @@ class Admin {
 			while(true) {
 
 				int index = scan.nextInt();//asking for the slot index preferred by user in ground floor
-=======
 	public void customerIsPaying(Customer customer) {
 
 		System.out.println("\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
@@ -687,11 +677,11 @@ class Admin {
 		}
 		System.out.println("Thank You for using our Parking Lot");
 		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 
 				if(groundFloor.checkIndex(index,1)) {//checking if a slot is available to park a truck
 
-<<<<<<< HEAD
+
 					groundFloor.assignSlot(index,1);//assign the slot 
 					customer.changeSlotIndex(index);//update the slot in customer's information
 					customer.setEntryTime();//enter the entry time for the customer
@@ -706,7 +696,7 @@ class Admin {
 				}
 
 			}
-=======
+
 	void preferencesDisplayBoard(int vehicleType) {
 
 		System.out.println("--------------------------------------------------------------");
@@ -735,7 +725,7 @@ class Admin {
 			else
 				System.out.println("3 - Compact\t\t\t: price/hour\t\t\t: available");
 			
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 		}
 		System.out.println("--------------------------------------------------------------");
 		
@@ -743,7 +733,7 @@ class Admin {
 	
 	private void askMultiPreferences(int vehicleType) {
 
-<<<<<<< HEAD
+
 		else {//if vehicle other than truck is to be parked
 
 			commonFloor[floorNum - 1].showSpots(preference);//showing spots for preferred type on floor number entered by user
@@ -758,7 +748,7 @@ class Admin {
 					customer.changeSlotIndex(index);//update the customer's information about slot
 					
 					if(preference == 3) {//in case the vehicle is electric car, we ask for charging option
-=======
+
 		Customer customer;
 		preferencesDisplayBoard(vehicleType);
 
@@ -790,13 +780,13 @@ class Admin {
 					System.out.println("Sorry, above preference is not available");
 				}
 			}
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 
 						System.out.println("\nWould you like to opt for charging your car?");
 						System.out.println("0 - No");
 						System.out.println("1 - Yes");
 
-<<<<<<< HEAD
+
 						while(true) {
 
 							int chargeInput = scan.nextInt();//taking input to know if customer prefers charging
@@ -827,7 +817,7 @@ class Admin {
 				else
 					System.out.println("Please enter a valid index");//asking the customer to enter a valid slot index
 			}
-=======
+
 		customer.showTicket();
 		customers.put(customer.getID(),customer);
 
@@ -904,13 +894,13 @@ class Customer{
 	void changeFloorNumber(int num) {
 		floorNumber = num;
 	}
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+>
 
 	int getFloorNumber() {
 		return floorNumber;
 	}
 
-<<<<<<< HEAD
+<
 		
 		return customer;//return the customer with update information
 
@@ -959,7 +949,6 @@ class Customer{
 					System.out.println("Sorry, all preferences are filled for your vehicle type");
 					continue;
 				}
-=======
 	void setEntryTime() {
 		entryTime = LocalDateTime.now();
 	}
@@ -991,7 +980,7 @@ class Customer{
 		return paymentFee;
 	}
 }
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 
 				else {//assign and update the customer information
 					customer = new Customer(vehicles.get(vehicleType), id, vehicleType);
@@ -1024,9 +1013,9 @@ class Customer{
 				System.out.println("Please enter a valid Vehicle Type");//asking for valid vehicle type
 			}
 
-<<<<<<< HEAD
+
 		}
-=======
+
 		setArrays();
 
 		motorcycleEmptySpots = motorcyclesize;
@@ -1034,11 +1023,11 @@ class Customer{
 		largeEmptySpots = largeSize;
 		handicappedEmptySpots = handicappedSize;
 		compactEmptySpots = compactSize;
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 
 	}
 
-<<<<<<< HEAD
+
 	public void customerIsPaying(Customer customer) {
 		//payment portal for customer
 		System.out.println("\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
@@ -1053,7 +1042,6 @@ class Customer{
 		System.out.println("\nIf the customer is paying by cash press 0");//if customer wants to pay through cash
 		System.out.println("If the customer is paying by credit card press 1");//if wants to pay through credit card
 		while(true) {
-=======
 	void setArrays() {
 		for(int i = 0; i < motorcycle.length; i++)
 			motorcycle[i] = false;
@@ -1068,7 +1056,7 @@ class Customer{
 	}
 
 	boolean isAvailable(int preferenceType) {
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 
 			int input = scan.nextInt();//input to get the payment method 
 
@@ -1151,11 +1139,11 @@ class Customer{
 		else
 			System.out.println("2 - Handicapped\t\t\t: " + rates.get(5) + "/hour\t\t\t: available");
 
-<<<<<<< HEAD
+
 		if(vehicleType == 5) {
-=======
+
 		else {
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 
 			if(isPreferenceTypeFull(6))
 				System.out.println("3 - Compact\t\t\t: " + rates.get(6) * 100 + "/hour\t\t\t: not available");
@@ -1163,10 +1151,10 @@ class Customer{
 				System.out.println("3 - Compact\t\t\t: " + rates.get(6) + "/hour\t\t\t: available");
 			
 		}
-<<<<<<< HEAD
+
 		System.out.println("--------------------------------------------------------------");
 		
-=======
+
 	}
 
 	void assignSlot(int index, int preference) {
@@ -1294,15 +1282,15 @@ class Customer{
 		}
 
 		System.out.println();
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 	}
 	
 	private void askMultiPreferences(int vehicleType) {//when vehicle has multiple preferences
 
-<<<<<<< HEAD
+
 		Customer customer;
 		preferencesDisplayBoard(vehicleType);//display board for the chosen vehicle type
-=======
+
 class TruckFloor {
 	
 	private boolean []truck;
@@ -1320,7 +1308,7 @@ class TruckFloor {
 	}
 
 	boolean isAvailable() {
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 
 		while(true) {
 			int preferenceType = scan.nextInt();//get the preference
@@ -1351,7 +1339,7 @@ class TruckFloor {
 				}
 			}
 
-<<<<<<< HEAD
+
 			else {
 				System.out.println("Please enter a vaild Preference Type.");//if preference is invalid
 			}
@@ -1360,7 +1348,7 @@ class TruckFloor {
 
 		customer.showTicket();//print the customer ticket
 		customers.put(customer.getID(),customer);//allot the customer and map him/her to the ID
-=======
+
 	public void assignSlot(int index) {
 
 		truck[index - 1] = true;
@@ -1444,7 +1432,6 @@ class Payment {
 public class ParkingLot {
 	final static String PIN = "GOD";//PIN which only administrator would know to start the operation of parking lot
 	public static void main(String[] args) {
-<<<<<<< HEAD
 		Admin admin = new Admin();//make an administrator object
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Enter your PIN,please");
@@ -1460,10 +1447,9 @@ public class ParkingLot {
 				System.out.println("You tries are exhausted. Contact support.");//tries exhausted
 		}
 		scan.close();
-=======
 		Admin admin = new Admin();
 		admin.start();
->>>>>>> e25c6bab4e79afe3121f103c4f58245f6885db60
+
 	}
 
 }
