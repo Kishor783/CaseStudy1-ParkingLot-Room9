@@ -283,7 +283,7 @@ class Admin {
 		while(true) {//if customer wants to leave or a new customer wants to park his vehicle
 			System.out.println("Press 0 if the vehicle is already parked else press any other number for new entry.");
 			int x = scan.nextInt();//asking for a valid entry to perform the desired operations
-			if(x == 0) {//if a customer wants to leave
+			if(x == 0 && customers.size() > 0) {//if a customer wants to leave
 				// ============== OLD CUSTOMER OUT ===============
 				System.out.println("Please enter your ID");//ask for customer's ID
 				while(true) {
@@ -297,6 +297,10 @@ class Admin {
 						System.out.println("Please enter a valid ID");//ask for valid ID
 				}
 				continue;//move to the next iteration
+			}
+			else if(x == 0 & customers.size() == 0){
+				System.out.println("No vehicles are present currently");
+				continue;
 			}
 			//if new customer has come
 			// ============== NEW CUSTOMER IN ===============
