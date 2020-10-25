@@ -201,7 +201,7 @@ class Admin {
 	
 	Customer allotFloor(int vehicleType, Customer customer, int preference) {
 
-		displayAvailableFloors(vehicleType);
+		displayAvailableFloors(preference);
 		
 		while(true) {
 
